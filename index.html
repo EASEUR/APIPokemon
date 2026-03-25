@@ -7,13 +7,15 @@
     <style>
       :root {
         color-scheme: light;
-        --bg: #f6f7fb;
-        --card: #ffffff;
-        --text: #172033;
-        --muted: #5f6b85;
+        --bg: #f4f7fb;
+        --panel: #ffffff;
+        --panel-soft: #f8fbff;
+        --text: #1a2233;
+        --muted: #61708d;
+        --border: #d8e1f0;
         --accent: #e3350d;
-        --accent-dark: #b52a0b;
-        --border: #dbe1ee;
+        --accent-dark: #bb2a09;
+        --shadow: 0 18px 40px rgba(26, 34, 51, 0.1);
       }
 
       * {
@@ -23,79 +25,269 @@
       body {
         margin: 0;
         min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 24px;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        background:
-          radial-gradient(circle at top, #fff5d6 0%, transparent 35%),
-          linear-gradient(180deg, #eef3ff 0%, var(--bg) 100%);
         color: var(--text);
+        background:
+          radial-gradient(circle at top, #fff5d8 0%, transparent 32%),
+          linear-gradient(180deg, #edf4ff 0%, var(--bg) 100%);
       }
 
-      main {
-        width: min(720px, 100%);
-        background: var(--card);
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 32px auto 48px;
+      }
+
+      .hero,
+      .details,
+      .status {
+        background: var(--panel);
         border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 32px;
-        box-shadow: 0 16px 50px rgba(23, 32, 51, 0.08);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        padding: 28px;
+        margin-bottom: 20px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
       }
 
       h1 {
-        margin: 0 0 12px;
-        font-size: clamp(2rem, 4vw, 3rem);
+        margin-bottom: 10px;
+        font-size: clamp(2rem, 4vw, 3.2rem);
       }
 
-      p {
-        margin: 0 0 14px;
+      .lead {
+        margin-bottom: 0;
+        color: var(--muted);
         line-height: 1.6;
+      }
+
+      .status {
+        padding: 18px 20px;
+        margin-bottom: 20px;
         color: var(--muted);
       }
 
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 24px;
+      .status.error {
+        border-color: #efb4b4;
+        background: #fff4f4;
+        color: #8b1f1f;
       }
 
-      a {
-        text-decoration: none;
+      .details {
+        display: none;
+        padding: 24px;
+        margin-bottom: 20px;
+        background: linear-gradient(180deg, #ffffff 0%, var(--panel-soft) 100%);
+      }
+
+      .details-grid {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 22px;
+        align-items: start;
+      }
+
+      .details img {
+        width: 180px;
+        height: 180px;
+        object-fit: contain;
+        border-radius: 18px;
+        background: #ffffff;
+        border: 1px solid var(--border);
+        padding: 18px;
+      }
+
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 10px;
+        margin: 16px 0;
+      }
+
+      .meta div {
+        padding: 12px;
+        border-radius: 14px;
+        background: #ffffff;
+        border: 1px solid var(--border);
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 14px;
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--panel);
+        box-shadow: 0 10px 24px rgba(26, 34, 51, 0.06);
+        padding: 16px;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 28px rgba(26, 34, 51, 0.12);
+        border-color: #bcc9dd;
+      }
+
+      .card img {
+        display: block;
+        width: 108px;
+        height: 108px;
+        object-fit: contain;
+        margin: 0 auto 10px;
+      }
+
+      .types {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .cta {
+        display: inline-block;
+        margin-top: 14px;
+        padding: 10px 16px;
         border-radius: 999px;
-        padding: 12px 18px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
         font-weight: 700;
       }
 
-      .primary {
-        background: var(--accent);
-        color: #fff;
-      }
-
-      .primary:hover {
+      .cta:hover {
         background: var(--accent-dark);
       }
 
-      .secondary {
-        border: 1px solid var(--border);
-        color: var(--text);
-      }
+      @media (max-width: 720px) {
+        .page {
+          width: min(100% - 20px, 1120px);
+          margin-top: 20px;
+        }
 
-      code {
-        background: #f1f4fa;
-        border-radius: 8px;
-        padding: 2px 8px;
+        .hero,
+        .details,
+        .status {
+          border-radius: 18px;
+        }
+
+        .details-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .details img {
+          width: 140px;
+          height: 140px;
+        }
       }
     </style>
   </head>
   <body>
-    <main>
-      <h1>API Pokemon deployee</h1>
-      <p>Le projet est bien en ligne. La racine <code>/</code> affiche cette page pour eviter la 404.</p>
-      <p>L'endpoint API a tester est <code>/api</code>.</p>
-      <div class="actions">
-        <a class="primary" href="/api">Ouvrir l'API</a>
-      </div>
+    <main class="page">
+      <section class="hero">
+        <h1>Liste des Pokemons</h1>
+        <p class="lead">
+          Clique sur une carte pour afficher ses details. Les donnees sont chargees depuis l'endpoint
+          <code>/api</code>.
+        </p>
+        <a class="cta" href="/api">Voir le JSON</a>
+      </section>
+
+      <section id="status" class="status">Chargement des pokemons...</section>
+      <section id="details" class="details"></section>
+      <section id="cards" class="cards" aria-live="polite"></section>
     </main>
+
+    <script>
+      const statusEl = document.getElementById('status')
+      const detailsEl = document.getElementById('details')
+      const cardsEl = document.getElementById('cards')
+
+      const renderDetails = (pokemon) => {
+        detailsEl.style.display = 'block'
+        detailsEl.innerHTML = `
+          <div class="details-grid">
+            <img src="${pokemon.image}" alt="${pokemon.name}" />
+            <div>
+              <h2>${pokemon.name}</h2>
+              <p>${pokemon.description}</p>
+              <div class="meta">
+                <div><strong>Type :</strong><br />${pokemon.types.join(', ')}</div>
+                <div><strong>Categorie :</strong><br />${pokemon.category}</div>
+                <div><strong>Taille :</strong><br />${pokemon.size}</div>
+                <div><strong>Poids :</strong><br />${pokemon.weight}</div>
+                <div><strong>PV :</strong><br />${pokemon.hp}</div>
+                <div><strong>CP :</strong><br />${pokemon.cp}</div>
+                <div><strong>Talents :</strong><br />${pokemon.abilities.join(', ')}</div>
+                <div><strong>Faiblesses :</strong><br />${pokemon.weaknesses.join(', ')}</div>
+              </div>
+              <p><strong>Evolution :</strong> ${pokemon.evolution}</p>
+            </div>
+          </div>
+        `
+        window.scrollTo({ top: detailsEl.offsetTop - 16, behavior: 'smooth' })
+      }
+
+      const renderCards = (pokemons) => {
+        cardsEl.innerHTML = pokemons
+          .map(
+            (pokemon) => `
+              <article class="card" data-pokemon-id="${pokemon.id}">
+                <img src="${pokemon.image}" alt="${pokemon.name}" />
+                <h3>${pokemon.name}</h3>
+                <p class="types">${pokemon.types.join(', ')}</p>
+              </article>
+            `
+          )
+          .join('')
+
+        cardsEl.querySelectorAll('[data-pokemon-id]').forEach((card) => {
+          card.addEventListener('click', () => {
+            const pokemonId = Number(card.dataset.pokemonId)
+            const pokemon = pokemons.find((item) => item.id === pokemonId)
+
+            if (pokemon) {
+              renderDetails(pokemon)
+            }
+          })
+        })
+      }
+
+      const loadPokemons = async () => {
+        try {
+          const response = await fetch('/api')
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`)
+          }
+
+          const result = await response.json()
+          const pokemons = Array.isArray(result.data) ? result.data : []
+
+          statusEl.textContent = `${pokemons.length} pokemons charges.`
+          renderCards(pokemons)
+
+          if (pokemons[0]) {
+            renderDetails(pokemons[0])
+          }
+        } catch (error) {
+          statusEl.classList.add('error')
+          statusEl.textContent = `Impossible de charger les pokemons: ${error.message}`
+        }
+      }
+
+      loadPokemons()
+    </script>
   </body>
 </html>
